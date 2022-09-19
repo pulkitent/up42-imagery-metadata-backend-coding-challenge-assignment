@@ -10,12 +10,9 @@ import java.util.UUID;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Properties {
   @JsonProperty("id")
-  public
-  UUID id;
+  private UUID id;
   @JsonProperty("timeStamp")
-  public
-  Long timeStamp;
+  private Long timeStamp;
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  public
-  Acquisition acquisition;
+  private Acquisition acquisition;
 }

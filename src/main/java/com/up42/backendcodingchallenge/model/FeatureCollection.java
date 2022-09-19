@@ -11,6 +11,5 @@ import java.util.List;
 public
 class FeatureCollection {
   @JsonProperty("features")
-  public
-  List<Feature> features;
+  private List<Feature> features;
 }

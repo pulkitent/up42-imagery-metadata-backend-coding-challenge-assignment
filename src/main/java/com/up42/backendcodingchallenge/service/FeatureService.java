@@ -35,11 +35,11 @@ public class FeatureService {
   private FeatureDTO getDTOFromModel(final Feature feature) {
     final FeatureDTO featureDTO = new FeatureDTO();
 
-    featureDTO.setPropertyId((feature.properties.id));
-    featureDTO.setPropertyTimestamp(feature.properties.timeStamp);
-    featureDTO.setPropertyAcquisitionBeginViewingDate(feature.properties.acquisition.beginViewingDate);
-    featureDTO.setPropertyAcquisitionEndViewingDate(feature.properties.acquisition.endViewingDate);
-    featureDTO.setPropertyAcquisitionMissionName(feature.properties.acquisition.missionName);
+    featureDTO.setPropertyId((feature.getProperties().getId()));
+    featureDTO.setPropertyTimestamp(feature.getProperties().getTimeStamp());
+    featureDTO.setPropertyAcquisitionBeginViewingDate(feature.getProperties().getAcquisition().getBeginViewingDate());
+    featureDTO.setPropertyAcquisitionEndViewingDate(feature.getProperties().getAcquisition().getEndViewingDate());
+    featureDTO.setPropertyAcquisitionMissionName(feature.getProperties().getAcquisition().getMissionName());
 
     return featureDTO;
   }

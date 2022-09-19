@@ -8,5 +8,5 @@ import lombok.Getter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Feature {
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  public Properties properties;
+  private Properties properties;
 }

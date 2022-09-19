@@ -8,12 +8,9 @@ import lombok.Getter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Acquisition {
   @JsonProperty("beginViewingDate")
-  public
-  Long beginViewingDate;
+  private Long beginViewingDate;
   @JsonProperty("endViewingDate")
-  public
-  Long endViewingDate;
+  private Long endViewingDate;
   @JsonProperty("missionName")
-  public
-  String missionName;
+  private String missionName;
 }
