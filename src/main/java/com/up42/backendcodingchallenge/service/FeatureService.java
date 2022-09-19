@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -51,7 +50,7 @@ public class FeatureService {
 
     return featureRepository
         .findById(id)
-        .map(feature -> Base64.getDecoder().decode(feature.getProperty().getQuickLook()))
+        .map(Feature::getDecodedQuickLook)
         .orElseGet(() -> new byte[0]);
   }
 

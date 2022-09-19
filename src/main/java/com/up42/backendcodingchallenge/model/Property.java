@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
+import java.util.Base64;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -22,5 +24,13 @@ public final class Property {
     this.timeStamp = timeStamp;
     this.quickLook = quickLook;
     this.acquisition = acquisition;
+  }
+
+  byte[] getDecodedQuickLook() {
+    if (Objects.isNull(this.getQuickLook())
+        || this.getQuickLook().isEmpty()) {
+      return new byte[0];
+    }
+    return Base64.getDecoder().decode(this.getQuickLook());
   }
 }
