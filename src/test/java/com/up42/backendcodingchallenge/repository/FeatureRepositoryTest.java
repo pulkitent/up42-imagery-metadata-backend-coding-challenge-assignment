@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class FeaturesRepositoryTest {
+class FeatureRepositoryTest {
   @Test
   @DisplayName("Test findAll should return non empty feature collection list when features are present")
   void testFindAll_ShouldReturnNonEmptyFeatureCollectionList() {

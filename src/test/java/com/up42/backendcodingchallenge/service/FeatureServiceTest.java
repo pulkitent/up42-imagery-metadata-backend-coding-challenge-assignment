@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(MockitoExtension.class)
-class FeaturesServiceTest {
+class FeatureServiceTest {
   @InjectMocks
   private FeatureService featuresService;
   @Mock
