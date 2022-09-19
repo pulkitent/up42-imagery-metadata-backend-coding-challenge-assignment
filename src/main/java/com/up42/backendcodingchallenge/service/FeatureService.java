@@ -25,7 +25,7 @@ public class FeatureService {
     this.featureRepository = featureRepository;
   }
 
-  public List<FeatureDTO> getFeatures() throws IOException {
+  public List<FeatureDTO> getAllFeatures() throws IOException {
     final List<FeatureCollection> featureCollections = featureRepository.findAll();
 
     return featureCollections

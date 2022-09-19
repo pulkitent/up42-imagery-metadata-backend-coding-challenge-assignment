@@ -15,7 +15,12 @@ public class FeatureRepository {
   private static final ObjectMapper mapper = new ObjectMapper();
 
   public List<FeatureCollection> findAll() throws IOException {
-    final File jsonFile = ResourceUtils.getFile("classpath:static/source-data.json");
-    return mapper.readValue(jsonFile, new TypeReference<List<FeatureCollection>>() {});
+    try {
+      final File file = ResourceUtils.getFile("classpath:static/source-data.json");
+      return mapper.readValue(file, new TypeReference<List<FeatureCollection>>() {
+      });
+    } catch (IOException ex) {
+      throw new RuntimeException("Failed to deserialize data source JSON file.");
+    }
   }
 }

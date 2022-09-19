@@ -22,7 +22,7 @@ public class FeaturesController {
 
   @GetMapping("/features")
   public ResponseEntity<List<FeatureDTO>> getFeatures() throws IOException {
-    final List<FeatureDTO> features = featureService.getFeatures();
+    final List<FeatureDTO> features = featureService.getAllFeatures();
     return new ResponseEntity<>(features, HttpStatus.OK);
   }
 }
