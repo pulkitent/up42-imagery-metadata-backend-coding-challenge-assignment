@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Feature {
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private Properties properties;
+  @JsonProperty("properties")
+  private Property property;
 }
