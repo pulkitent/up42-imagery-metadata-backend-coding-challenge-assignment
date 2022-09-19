@@ -4,13 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
-import java.util.List;
+import java.util.UUID;
 
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public
-class FeatureCollection {
-  @JsonProperty("features")
+public class Properties {
+  @JsonProperty("id")
   public
-  List<Feature> features;
+  UUID id;
+  @JsonProperty("timeStamp")
+  public
+  Long timeStamp;
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  public
+  Acquisition acquisition;
 }

@@ -1,6 +1,6 @@
 package com.up42.backendcodingchallenge.controller;
 
-import com.up42.backendcodingchallenge.model.FeatureCollection;
+import com.up42.backendcodingchallenge.model.Feature;
 import com.up42.backendcodingchallenge.service.FeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ public class FeaturesController {
   }
 
   @GetMapping("/features")
-  public List<FeatureCollection.Feature> getFeatures() throws IOException {
+  public List<Feature> getFeatures() throws IOException {
     return featureService.getFeatures();
   }
 }

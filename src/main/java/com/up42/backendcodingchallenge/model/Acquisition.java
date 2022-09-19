@@ -4,13 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public
-class FeatureCollection {
-  @JsonProperty("features")
+public class Acquisition {
+  @JsonProperty("beginViewingDate")
   public
-  List<Feature> features;
+  Long beginViewingDate;
+  @JsonProperty("endViewingDate")
+  public
+  Long endViewingDate;
+  @JsonProperty("missionName")
+  public
+  String missionName;
 }

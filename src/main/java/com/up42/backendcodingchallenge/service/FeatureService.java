@@ -2,6 +2,7 @@ package com.up42.backendcodingchallenge.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.up42.backendcodingchallenge.model.Feature;
 import com.up42.backendcodingchallenge.model.FeatureCollection;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class FeatureService {
-  public List<FeatureCollection.Feature> getFeatures() throws IOException {
+  public List<Feature> getFeatures() throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     File jsonFile = ResourceUtils.getFile("classpath:static/source-data.json");
     List<FeatureCollection> featureCollections = mapper.readValue(jsonFile, new TypeReference<List<FeatureCollection>>() {
