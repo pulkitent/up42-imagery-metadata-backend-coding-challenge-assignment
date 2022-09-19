@@ -37,7 +37,7 @@ class FeatureServiceTest {
     String encodedString = "cHVsa2l0";
     Acquisition acquisition = new Acquisition(111L, 222L, "mission-name");
     UUID uuid = UUID.randomUUID();
-    Property property = new Property(uuid, 1111L, acquisition);
+    Property property = new Property(uuid, 1111L, encodedString, acquisition);
     Feature feature = new Feature(property);
     Mockito.when(featuresRepository.findAll()).thenReturn(singletonList(new FeatureCollection(singletonList(feature))));
 

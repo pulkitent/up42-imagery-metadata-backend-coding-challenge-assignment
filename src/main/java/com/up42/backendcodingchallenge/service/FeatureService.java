@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -41,6 +43,13 @@ public class FeatureService {
             .stream())
         .map(this::getDTOFromModel)
         .collect(Collectors.toList());
+  }
+  
+  public byte[] getQuickLookByFeatureId(final UUID id) {
+    return featureRepository
+        .findById(id)
+        .map(feature -> Base64.getDecoder().decode(feature.getProperty().getQuickLook()))
+        .orElseGet(() -> new byte[0]);
   }
 
   private FeatureDTO getDTOFromModel(final Feature feature) {
