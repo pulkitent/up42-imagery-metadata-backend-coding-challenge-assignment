@@ -2,7 +2,7 @@ package com.up42.backendcodingchallenge.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.up42.backendcodingchallenge.model.Feature;
+import com.up42.backendcodingchallenge.dto.FeatureDTO;
 import com.up42.backendcodingchallenge.model.FeatureCollection;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class FeatureService {
-  public List<Feature> getFeatures() throws IOException {
+  public List<FeatureDTO> getFeatures() throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     File jsonFile = ResourceUtils.getFile("classpath:static/source-data.json");
     List<FeatureCollection> featureCollections = mapper.readValue(jsonFile, new TypeReference<List<FeatureCollection>>() {
@@ -26,12 +26,13 @@ public class FeatureService {
             .features
             .stream())
         .map(feature -> {
-          feature.id = feature.properties.id;
-          feature.timestamp = feature.properties.timeStamp;
-          feature.beginViewingDate = feature.properties.acquisition.beginViewingDate;
-          feature.endViewingDate = feature.properties.acquisition.endViewingDate;
-          feature.missionName = feature.properties.acquisition.missionName;
-          return feature;
+          FeatureDTO featureDTO = new FeatureDTO();
+          featureDTO.setPropertyId((feature.properties.id));
+          featureDTO.setPropertyTimestamp(feature.properties.timeStamp);
+          featureDTO.setPropertyAcquisitionBeginViewingDate(feature.properties.acquisition.beginViewingDate);
+          featureDTO.setPropertyAcquisitionEndViewingDate(feature.properties.acquisition.endViewingDate);
+          featureDTO.setPropertyAcquisitionMissionName(feature.properties.acquisition.missionName);
+          return featureDTO;
         })
         .collect(Collectors.toList());
   }
