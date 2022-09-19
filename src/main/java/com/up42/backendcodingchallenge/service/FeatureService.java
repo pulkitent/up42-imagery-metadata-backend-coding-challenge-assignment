@@ -1,6 +1,7 @@
 package com.up42.backendcodingchallenge.service;
 
 import com.up42.backendcodingchallenge.dto.FeatureDTO;
+import com.up42.backendcodingchallenge.exception.ModelTransformationException;
 import com.up42.backendcodingchallenge.model.Feature;
 import com.up42.backendcodingchallenge.model.FeatureCollection;
 import com.up42.backendcodingchallenge.repository.FeatureRepository;
@@ -41,7 +42,7 @@ public class FeatureService {
     try {
       return modelMapper.map(feature, FeatureDTO.class);
     } catch (IllegalArgumentException | ConfigurationException | MappingException exception) {
-      throw new RuntimeException(exception.getLocalizedMessage());
+      throw new ModelTransformationException("Failed to transform feature model to DTO.", exception);
     }
   }
 }
