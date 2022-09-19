@@ -15,13 +15,18 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static java.util.Collections.singletonList;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class FeatureServiceTest {
@@ -64,5 +69,39 @@ class FeatureServiceTest {
 
     //Assert
     Assertions.assertTrue(featureDTOS.isEmpty());
+  }
+
+  @Test
+  @DisplayName("Test GetQuickLookByFeatureId should return decoded quicklook when quicklook is present for given featureId")
+  void testGetQuickLookByFeatureId_ShouldReturnDecodedQuickLookWhenQuickLookIsPresent() {
+    // Arrange
+    String encodedString = "cHVsa2l0";
+    Acquisition acquisition = new Acquisition(111L, 222L, "mission-name");
+    UUID uuid = UUID.randomUUID();
+    Property property = new Property(uuid, 1111L, encodedString, acquisition);
+    Feature feature = new Feature(property);
+    Mockito.when(featuresRepository.findById(uuid)).thenReturn(Optional.of(feature));
+    byte[] expectedDecodedQuickLook = Base64.getDecoder().decode(encodedString.getBytes(StandardCharsets.UTF_8));
+
+    // Act
+    byte[] quickLookByFeatureId = featuresService.getQuickLookByFeatureId(uuid);
+
+    // Assert
+    assertTrue(quickLookByFeatureId.length > 0);
+    assertArrayEquals(expectedDecodedQuickLook, quickLookByFeatureId);
+  }
+
+  @Test
+  @DisplayName("Test GetQuickLookByFeatureId should return quicklook with 0 size when feature is not present for given featureId")
+  void testGetQuickLookByFeatureId_ShouldReturnEmptyQuickLookFeatureIdIsNotPresent() {
+    // Arrange
+    UUID uuid = UUID.randomUUID();
+    Mockito.when(featuresRepository.findById(uuid)).thenReturn(Optional.empty());
+
+    // Act
+    byte[] quickLookByFeatureId = featuresService.getQuickLookByFeatureId(uuid);
+
+    // Assert
+    assertEquals(0, quickLookByFeatureId.length);
   }
 }
