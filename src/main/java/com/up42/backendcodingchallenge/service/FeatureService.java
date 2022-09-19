@@ -48,7 +48,7 @@ public class FeatureService {
         .stream()
         .filter(Objects::nonNull)
         .flatMap(featureCollection -> featureCollection
-            .getFeatures()
+            .getFeatureList()
             .stream())
         .map(this::getDTOFromModel)
         .collect(Collectors.toList());
