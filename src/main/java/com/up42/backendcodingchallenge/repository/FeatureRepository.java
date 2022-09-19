@@ -24,7 +24,7 @@ public class FeatureRepository {
     this.filePath = filePath;
   }
 
-  public List<FeatureCollection> findAll() throws IOException {
+  public List<FeatureCollection> findAll() {
     try {
       final File file = ResourceUtils.getFile(filePath);
       return mapper.readValue(file, new TypeReference<List<FeatureCollection>>() {

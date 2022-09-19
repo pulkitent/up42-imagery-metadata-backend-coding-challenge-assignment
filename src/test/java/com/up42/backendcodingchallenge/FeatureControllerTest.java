@@ -15,7 +15,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class FeaturesControllerTest {
+class FeatureControllerTest {
   @LocalServerPort
   int port;
 

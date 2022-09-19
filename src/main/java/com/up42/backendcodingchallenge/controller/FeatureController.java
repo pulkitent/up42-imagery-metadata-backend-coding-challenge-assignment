@@ -8,20 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
-public class FeaturesController {
+public class FeatureController {
   private final FeatureService featureService;
 
   @Autowired
-  public FeaturesController(final FeatureService featureService) {
+  public FeatureController(final FeatureService featureService) {
     this.featureService = featureService;
   }
 
   @GetMapping("/features")
-  public ResponseEntity<List<FeatureDTO>> getFeatures() throws IOException {
+  public ResponseEntity<List<FeatureDTO>> getFeatures() {
     final List<FeatureDTO> features = featureService.getAllFeatures();
     return new ResponseEntity<>(features, HttpStatus.OK);
   }
