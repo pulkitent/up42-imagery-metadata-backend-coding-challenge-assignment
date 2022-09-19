@@ -8,11 +8,16 @@ import java.util.UUID;
 
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Property {
-  @JsonProperty("id")
-  private UUID id;
-  @JsonProperty("timeStamp")
-  private Long timeStamp;
-  @JsonProperty("acquisition")
-  private Acquisition acquisition;
+public final class Property {
+  private final UUID id;
+  private final Long timeStamp;
+  private final Acquisition acquisition;
+
+  public Property(@JsonProperty("uid") UUID id,
+                  @JsonProperty("timestamp") Long timeStamp,
+                  @JsonProperty("acquisition") Acquisition acquisition) {
+    this.id = id;
+    this.timeStamp = timeStamp;
+    this.acquisition = acquisition;
+  }
 }

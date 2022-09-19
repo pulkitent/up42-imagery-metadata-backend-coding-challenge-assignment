@@ -8,8 +8,10 @@ import java.util.List;
 
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public
-class FeatureCollection {
-  @JsonProperty("features")
-  private List<Feature> features;
+public final class FeatureCollection {
+  private final List<Feature> features;
+
+  public FeatureCollection(@JsonProperty("features") List<Feature> features) {
+    this.features = features;
+  }
 }

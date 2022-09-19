@@ -6,11 +6,16 @@ import lombok.Getter;
 
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Acquisition {
-  @JsonProperty("beginViewingDate")
-  private Long beginViewingDate;
-  @JsonProperty("endViewingDate")
-  private Long endViewingDate;
-  @JsonProperty("missionName")
-  private String missionName;
+public final class Acquisition {
+  private final Long beginViewingDate;
+  private final Long endViewingDate;
+  private final String missionName;
+
+  public Acquisition(@JsonProperty("beginViewingDate") Long beginViewingDate,
+                     @JsonProperty("endViewingDate") Long endViewingDate,
+                     @JsonProperty("missionName") String missionName) {
+    this.beginViewingDate = beginViewingDate;
+    this.endViewingDate = endViewingDate;
+    this.missionName = missionName;
+  }
 }

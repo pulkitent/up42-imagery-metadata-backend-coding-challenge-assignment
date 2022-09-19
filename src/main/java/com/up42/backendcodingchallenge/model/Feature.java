@@ -6,7 +6,10 @@ import lombok.Getter;
 
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Feature {
-  @JsonProperty("properties")
-  private Property property;
+public final class Feature {
+  private final Property property;
+
+  public Feature(@JsonProperty("properties") Property property) {
+    this.property = property;
+  }
 }
