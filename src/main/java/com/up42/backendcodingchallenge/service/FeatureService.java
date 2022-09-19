@@ -4,6 +4,7 @@ import com.up42.backendcodingchallenge.dto.FeatureDTO;
 import com.up42.backendcodingchallenge.model.Feature;
 import com.up42.backendcodingchallenge.model.FeatureCollection;
 import com.up42.backendcodingchallenge.repository.FeatureRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 @Service
 public class FeatureService {
   private final FeatureRepository featureRepository;
+
+  private static final ModelMapper modelMapper = new ModelMapper();
 
   @Autowired
   public FeatureService(final FeatureRepository featureRepository) {
@@ -33,14 +36,6 @@ public class FeatureService {
   }
 
   private FeatureDTO getDTOFromModel(final Feature feature) {
-    final FeatureDTO featureDTO = new FeatureDTO();
-
-    featureDTO.setPropertyId((feature.getProperty().getId()));
-    featureDTO.setPropertyTimestamp(feature.getProperty().getTimeStamp());
-    featureDTO.setPropertyAcquisitionBeginViewingDate(feature.getProperty().getAcquisition().getBeginViewingDate());
-    featureDTO.setPropertyAcquisitionEndViewingDate(feature.getProperty().getAcquisition().getEndViewingDate());
-    featureDTO.setPropertyAcquisitionMissionName(feature.getProperty().getAcquisition().getMissionName());
-
-    return featureDTO;
+    return modelMapper.map(feature, FeatureDTO.class);
   }
 }
