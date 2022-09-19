@@ -44,8 +44,11 @@ public class FeatureService {
         .map(this::getDTOFromModel)
         .collect(Collectors.toList());
   }
-  
+
+  @Cacheable("quicklook")
   public byte[] getQuickLookByFeatureId(final UUID id) {
+    LOGGER.log(Level.INFO, "Fetching quicklook at service layer.");
+
     return featureRepository
         .findById(id)
         .map(feature -> Base64.getDecoder().decode(feature.getProperty().getQuickLook()))

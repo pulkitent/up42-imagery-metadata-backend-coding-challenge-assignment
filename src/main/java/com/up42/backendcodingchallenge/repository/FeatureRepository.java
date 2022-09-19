@@ -32,6 +32,7 @@ public class FeatureRepository {
 
   public List<FeatureCollection> findAll() {
     try {
+      LOGGER.log(Level.INFO, "Reading file from path: {0}", filePath);
       final File file = ResourceUtils.getFile(filePath);
       return mapper.readValue(file, new TypeReference<List<FeatureCollection>>() {
       });
