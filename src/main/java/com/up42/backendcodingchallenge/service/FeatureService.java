@@ -9,9 +9,12 @@ import org.modelmapper.ConfigurationException;
 import org.modelmapper.MappingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,15 +22,18 @@ public class FeatureService {
   private final FeatureRepository featureRepository;
 
   private static final ModelMapper modelMapper = new ModelMapper();
+  private static final Logger LOGGER = Logger.getLogger(FeatureService.class.getName());
 
   @Autowired
   public FeatureService(final FeatureRepository featureRepository) {
     this.featureRepository = featureRepository;
   }
 
+  @Cacheable("features")
   public List<FeatureDTO> getAllFeatures() {
-    final List<FeatureCollection> featureCollections = featureRepository.findAll();
+    LOGGER.log(Level.INFO, "Fetching features at service layer.");
 
+    final List<FeatureCollection> featureCollections = featureRepository.findAll();
     return featureCollections
         .stream()
         .flatMap(featureCollection -> featureCollection
