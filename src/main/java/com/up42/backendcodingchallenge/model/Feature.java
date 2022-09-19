@@ -15,6 +15,10 @@ public final class Feature {
     this.property = property;
   }
 
+  /*
+   * Get Base64 decoded quicklook.
+   * @return A Base64 decoded byte array of quicklook
+   * */
   public byte[] getDecodedQuickLook() {
     if (Objects.isNull(this.getProperty())) {
       return new byte[0];

@@ -16,6 +16,9 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/*
+ * Job of this class is to represent public REST API to processing incoming requests
+ * */
 @RestController
 public class FeatureController {
   private final FeatureService featureService;
@@ -27,6 +30,11 @@ public class FeatureController {
     this.featureService = featureService;
   }
 
+  /*
+   * Get all available features.
+   * @return A list of feature data transfer object wrapped inside ResponseEntity if features are present, or
+   *         an empty list if features are not present.
+   * */
   @GetMapping("/features")
   public ResponseEntity<List<FeatureDTO>> getFeatures() {
     LOGGER.log(Level.INFO, "Request received to fetch all features at controller layer.");
@@ -35,6 +43,11 @@ public class FeatureController {
     return new ResponseEntity<>(features, HttpStatus.OK);
   }
 
+  /*
+   * Get quicklook by given featureId.
+   * @return A decoded byte array of quicklook wrapped inside ResponseEntity if feature is found for given featureId, or
+   *         empty ResponseEntity if feature is not found for given featureId.
+   * */
   @GetMapping(value = "/features/{featureId}/quicklook")
   public ResponseEntity<byte[]> getQuicklook(@PathVariable("featureId") UUID featureId) {
     LOGGER.log(Level.INFO, "Request received to fetch quicklook by featureId {0} at controller layer.", featureId);

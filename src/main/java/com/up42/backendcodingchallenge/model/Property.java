@@ -26,6 +26,10 @@ public final class Property {
     this.acquisition = acquisition;
   }
 
+  /*
+   * Get Base64 decoded quicklook.
+   * @return A Base64 decoded byte array of quicklook
+   * */
   byte[] getDecodedQuickLook() {
     if (Objects.isNull(this.getQuickLook())
         || this.getQuickLook().isEmpty()) {

@@ -30,6 +30,10 @@ public class FeatureRepository {
     this.filePath = filePath;
   }
 
+  /*
+   * Find all available features.
+   * @return A list of feature collection domain entity
+   * */
   public List<FeatureCollection> findAll() {
     try {
       LOGGER.log(Level.INFO, "Reading file from path: {0}", filePath);
@@ -41,6 +45,11 @@ public class FeatureRepository {
     }
   }
 
+  /*
+   * Find a feature by it's id.
+   * @param id - feature id to get a feature
+   * @return A feature domain entity wrapped inside optional
+   * */
   public Optional<Feature> findById(final UUID id) {
     LOGGER.log(Level.INFO, "Fetching feature by id at repository layer.");
 
