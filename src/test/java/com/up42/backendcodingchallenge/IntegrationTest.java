@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import lombok.Builder;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +16,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class FeatureControllerTest {
+class IntegrationTest {
   @LocalServerPort
   int port;
 
@@ -26,7 +27,28 @@ class FeatureControllerTest {
 
   @Test
   void shouldReturnAllFeatures() {
-    List<ExpectedFeature> expectedFeatures = Arrays.asList(
+    //Given
+    List<ExpectedFeature> expectedFeatures = getExpectedFeatures();
+
+    //When
+    ValidatableResponse validatableResponse = RestAssured.given()
+        .get("/features")
+        .then()
+        .statusCode(200);
+
+    //Then
+    expectedFeatures
+        .forEach(expectedFeature -> validatableResponse
+            .body(String.format("id[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getId()))
+            .body(String.format("timestamp[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getTimestamp()))
+            .body(String.format("beginViewingDate[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getBeginViewingDate()))
+            .body(String.format("endViewingDate[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getEndViewingDate()))
+            .body(String.format("missionName[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getMissionName())));
+  }
+
+  @NotNull
+  private List<ExpectedFeature> getExpectedFeatures() {
+    return Arrays.asList(
         ExpectedFeature.builder()
             .key(0)
             .id("39c2f29e-c0f8-4a39-a98b-deed547d6aea")
@@ -139,24 +161,11 @@ class FeatureControllerTest {
             .endViewingDate(1555044797082L)
             .missionName("Sentinel-1A")
             .build());
-
-    ValidatableResponse validatableResponse = RestAssured.given()
-        .get("/features")
-        .then()
-        .statusCode(200);
-
-    expectedFeatures
-        .forEach(expectedFeature -> validatableResponse
-            .body(String.format("id[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getId()))
-            .body(String.format("timestamp[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getTimestamp()))
-            .body(String.format("beginViewingDate[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getBeginViewingDate()))
-            .body(String.format("endViewingDate[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getEndViewingDate()))
-            .body(String.format("missionName[%d]", expectedFeature.getKey()), equalTo(expectedFeature.getMissionName())));
   }
 
   @Builder
   @Getter
-  static class ExpectedFeature {
+  private static class ExpectedFeature {
     private final int key;
     private final String id;
     private final Long timestamp;
