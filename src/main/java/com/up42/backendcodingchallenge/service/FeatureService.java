@@ -1,24 +1,26 @@
 package com.up42.backendcodingchallenge.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.up42.backendcodingchallenge.dto.FeatureDTO;
 import com.up42.backendcodingchallenge.model.FeatureCollection;
+import com.up42.backendcodingchallenge.repository.FeatureRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class FeatureService {
+  private final FeatureRepository featureRepository;
+
+  @Autowired
+  public FeatureService(final FeatureRepository featureRepository) {
+    this.featureRepository = featureRepository;
+  }
+
   public List<FeatureDTO> getFeatures() throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    File jsonFile = ResourceUtils.getFile("classpath:static/source-data.json");
-    List<FeatureCollection> featureCollections = mapper.readValue(jsonFile, new TypeReference<List<FeatureCollection>>() {
-    });
+    final List<FeatureCollection> featureCollections = featureRepository.findAll();
 
     return featureCollections
         .stream()
