@@ -4,6 +4,8 @@ import com.up42.backendcodingchallenge.dto.FeatureDTO;
 import com.up42.backendcodingchallenge.model.Feature;
 import com.up42.backendcodingchallenge.model.FeatureCollection;
 import com.up42.backendcodingchallenge.repository.FeatureRepository;
+import org.modelmapper.ConfigurationException;
+import org.modelmapper.MappingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,10 @@ public class FeatureService {
   }
 
   private FeatureDTO getDTOFromModel(final Feature feature) {
-    return modelMapper.map(feature, FeatureDTO.class);
+    try {
+      return modelMapper.map(feature, FeatureDTO.class);
+    } catch (IllegalArgumentException | ConfigurationException | MappingException exception) {
+      throw new RuntimeException(exception.getLocalizedMessage());
+    }
   }
 }
